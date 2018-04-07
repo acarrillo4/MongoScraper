@@ -1,0 +1,9 @@
+      <ul>
+        {{#each article}}
+
+        <li id="listItem">
+          <h3>{{this._id}} {{this.title}} {{this.description}} {{this.author}} {{this.link}} {{this.imageURL}} </h3>
+          <button class="save-button btn btn-primary" data-id="{{this._id}}" data-saved="true">SAVE</button>
+        </li>
+        {{/each}}
+      </ul>
