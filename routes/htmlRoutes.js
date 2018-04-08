@@ -3,7 +3,7 @@ var request = require("request");
 var cheerio = require("cheerio");
 var db = require("../models");
 
-router.get("/all", function (req, res) {
+router.get("/scrape", function (req, res) {
     request("https://www.elle.com/", function (err, response, html) {
         var $ = cheerio.load(html);
         var results = [];
@@ -21,19 +21,24 @@ router.get("/all", function (req, res) {
             db.Article.count({
                 title: result.title
             }).then(function (dbItems) {
-                if (+dbItems === 0) {
-                    db.Article.create(result).catch(function (err) {
-                        // If an error occurs, send the error back to the client
-                        res.json(err);
-                    });
-                    console.log(+dbItems);
-                    console.log(result);
-                    res.json(results);
+                var found = +dbItems;
+                if (found === 0) {
+                    db.Article.create(result).then(function(data){
+                        console.log(found);
+                        console.log(result);
+            
+            }).catch(function (err) {
+                                // If an error occurs, send the error back to the client
+                                res.json(err);
+                            });
                 } else {
                     console.log("There is nothing to update");
                 }
+            }).catch(function (err) {
+                res.json(err);
             });
         });
+        res.json(results)
     });
 });
 
@@ -43,6 +48,8 @@ router.get("/", function (req, res) {
             article: data
         };
         res.render("home", hbsObject);
+    }).catch(function (err) {
+         res.json(err);
     });
 });
 module.exports = router;
