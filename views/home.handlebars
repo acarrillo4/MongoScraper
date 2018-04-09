@@ -1,9 +1,32 @@
-      <ul>
-        {{#each article}}
-
-        <li id="listItem">
-          <h3>{{this._id}} {{this.title}} {{this.description}} {{this.author}} {{this.link}} {{this.imageURL}} </h3>
-          <button class="save-button btn btn-primary" data-id="{{this._id}}" data-saved="true">SAVE</button>
-        </li>
-        {{/each}}
-      </ul>
+{{#each article}}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6" id="content">
+      <a href="{{this.link}}">
+        <h2>{{this.title}}</h2>
+      </a>
+      <p>{{this.description}}</p>
+      <p id="authorBold">
+        <strong>By: {{this.author}}</strong>
+      </p>
+      {{#if this.saved}}
+      <button type="button" class="btn btn-save btn-info" data-id="{{this._id}}" data-saved="false">
+        <span class="glyphicon glyphicon-heart"></span> SAVED</button>
+      {{else}}
+      <button type="button" class="btn btn-save btn-info" data-id="{{this._id}}" data-saved="true">
+        <span class="glyphicon glyphicon-heart"></span> SAVE</button>
+      {{/if}}
+    </div>
+    <div class="col-md-6">
+      <img src={{this.imageURL}}>
+    </div>
+  </div>
+</div>
+{{else}}
+<div class="jumbotron">
+  <div class="container">
+    <h1>Welcome to the Mongo Scraper!</h1>
+    <p>There are currently no articles on this page to display.  To run a scrape, please navigate to the "Scrape" tab on the top of this page.  Have a great day - Happy Scraping!</p>
+  </div>
+</div>
+{{/each}}

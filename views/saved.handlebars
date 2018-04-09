@@ -1,0 +1,40 @@
+{{#each article}}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6" id="content">
+      <a href="{{this.link}}">
+        <h2>{{this.title}}</h2>
+      </a>
+      <p>{{this.description}}</p>
+      <p id="authorBold">
+        <strong>By: {{this.author}}</strong>
+      </p>
+      {{#if this.saved}}
+      <button type="button" class="btn btn-delete btn-info" data-id="{{this._id}}" data-saved="false"> DELETE</button>
+      <button type="button" class="btn btn-comment btn-info" data-id="{{this._id}}"> COMMENT</button>
+      {{/if}}
+    </div>
+    <div class="col-md-6">
+      <img src={{this.imageURL}}>
+    </div>
+  </div>
+</div>
+{{else}}
+<div class="jumbotron">
+  <div class="container">
+    <h1>Saved Articles</h1>
+    <div id="instructions" class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <p>There are currently no saved articles on the database.  To save an article, please do the following:</p>
+        <ol>
+          <li>Navigate to the <strong>"Home"</strong> page to view any current articles.</li>
+          <li>Click the <strong>"Save"</strong> button on any articles you wish to save to the database</li>
+          <li>Once saved, your saved articles will display on this page</li>
+        </ol>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+</div>
+{{/each}}

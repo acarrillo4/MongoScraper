@@ -1,0 +1,55 @@
+body {
+    background-color: aquamarine;
+}
+h2 {
+    font-size: 30px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+p {
+    font-size: 18px;
+    padding:10px;
+}
+li {
+    font-size: 18px;
+}
+.container {
+    padding: 10px;
+    margin-top: 15px;
+}
+.row {
+    background-color: white;
+}
+button {
+    position: absolute;
+    right:    0px;
+    bottom:   10px;
+}
+.btn-comment {
+    position: absolute;
+    right:    75px;
+    bottom:   10px;
+}
+img {
+    float: right;
+}
+.col-md-6 {
+    position: relative;
+    margin-right: 0px;
+    padding-right: 0px;
+}
+#authorBold {
+    position: absolute;
+    left:    10px;
+    bottom:   0px;
+}
+a.nav-link {
+    font-size: 40px;
+}
+h1 {
+    text-align: center;
+}
+#instructions {
+    margin: 0 auto;
+    background-color: #f7f7f9;
+}
