@@ -19,21 +19,17 @@ router.get("/scrape", function (req, res) {
                 var found = +dbItems;
                 if (found === 0) {
                     db.Article.create(result).then(function(data){
-                        console.log(data);
                     }).catch(function (err) {
                         res.json(err);
                     });
-                }
-                else {
-                    console.log("nothing was added");
                 }
             }).catch(function (err) {
                 res.json(err);
             });
     });
-    res.redirect("/");
+    
+return res.redirect("/");
 });
-
 });
 
 router.get("/", function (req, res) {
@@ -52,16 +48,7 @@ router.get("/saved", function (req, res) {
         var hbsObject = {
             article: data
         };
-        console.log(hbsObject);
         res.render("saved", hbsObject);
-    }).catch(function (err) {
-         res.json(err);
-    });
-});
-
-router.get("/comment/display/:id", function (req, res) {
-    db.Article.findOne({_id: req.params.id}).populate("note").then(function (data) {
-        res.json(data.note);
     }).catch(function (err) {
          res.json(err);
     });

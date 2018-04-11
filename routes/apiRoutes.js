@@ -26,4 +26,24 @@ router.post("/comment/save/:id", function (req, res) {
     });
 });
 
+router.delete("/comment/delete/:id", function (req, res) {
+  var id = req.params.id;
+  db.Note.findOneAndRemove({ _id: id }).then(function (dbNote) {
+      return db.Article.findOneAndUpdate({ note: id }, { $pull: { note: id} }, { new: true });
+      }).then(function (dbArticle) {
+          res.json(dbArticle)
+        }).catch(function (err) {
+            res.json(err);
+        });
+});
+
+router.get("/comment/display/:id", function (req, res) {
+  db.Article.findOne({_id: req.params.id}).populate("note").then(function (data) {
+ var noteArray = data.note; 
+      res.json(noteArray);
+  }).catch(function (err) {
+       res.json(err);
+  });
+});
+
 module.exports = router;
