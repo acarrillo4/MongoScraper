@@ -10,8 +10,8 @@
         <strong>By: {{this.author}}</strong>
       </p>
       {{#if this.saved}}
-      <button type="button" class="btn btn-delete btn-info" data-id="{{this._id}}" data-saved="false"> DELETE</button>
-      <button type="button" class="btn btn-comment btn-info" data-id="{{this._id}}"> COMMENT</button>
+      <button type="button" class="btn btn-info btn-delete" data-id="{{this._id}}" data-saved="false"> DELETE</button>
+      <button type="button" class="btn btn-info btn-comment" data-id="{{this._id}}"> COMMENT</button>
       {{/if}}
     </div>
     <div class="col-md-6">
@@ -26,10 +26,12 @@
     <div id="instructions" class="row">
       <div class="col-md-3"></div>
       <div class="col-md-6">
-        <p>There are currently no saved articles on the database.  To save an article, please do the following:</p>
+        <p>There are currently no saved articles on the database. To save an article, please do the following:</p>
         <ol>
-          <li>Navigate to the <strong>"Home"</strong> page to view any current articles.</li>
-          <li>Click the <strong>"Save"</strong> button on any articles you wish to save to the database</li>
+          <li>Navigate to the
+            <strong>"Home"</strong> page to view any current articles.</li>
+          <li>Click the
+            <strong>"Save"</strong> button on any articles you wish to save to the database</li>
           <li>Once saved, your saved articles will display on this page</li>
         </ol>
       </div>
@@ -38,3 +40,31 @@
   </div>
 </div>
 {{/each}}
+
+<!-- Modal -->
+<div id="comment-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h3 class="modal-title">
+        <strong>Enter Comment:</strong>
+      </h2>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <textarea class="form-control" id="comment"></textarea >
+        <button type="button" class="btn btn-info btn-submit" data-id="{{this._id}}"> COMMENT</button>
+      </div>
+        {{#each note}} 
+          <div class="savedNotes">
+            <div class="note">
+              <h3>Comment: {{comment}}</h3>
+              <button type="button" id="comment-delete" data-id="{{this._id}}" data-saved="false"> DELETE</button>
+            </div>
+          </div>
+          {{/each}}
+          <div class="modal-footer">
+          </div>
+      </div>
+    </div>
+</div>

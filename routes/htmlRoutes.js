@@ -48,11 +48,24 @@ router.get("/", function (req, res) {
 });
 
 router.get("/saved", function (req, res) {
-    db.Article.find({saved: true}).then(function (data) {
+    db.Article.find({saved: true}).populate("note").then(function (data) {
         var hbsObject = {
             article: data
         };
+        console.log(hbsObject);
         res.render("saved", hbsObject);
+    }).catch(function (err) {
+         res.json(err);
+    });
+});
+
+router.get("/comment/display/:id", function (req, res) {
+    db.Article.find({_id: req.params.id}).populate("note").then(function (data) {
+        var hbsObject2 = {
+            note: data.note
+        };
+        console.log(hbsObject2);
+        res.json(hbsObject2)
     }).catch(function (err) {
          res.json(err);
     });

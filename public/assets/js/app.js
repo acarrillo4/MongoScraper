@@ -1,5 +1,5 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
-$(document).ready(function() {
+$(document).ready(function () {
     $(".btn-save").on("click", function (event) {
         var id = $(this).data("id");
         var state = $(this).data("saved");
@@ -7,8 +7,9 @@ $(document).ready(function() {
             saved: state
         };
         //   Send the PUT request.
-        $.ajax(`/api/news/${id}`,{
-            type: "PUT",
+        $.ajax({
+            url: `/api/news/${id}`,
+            method: "PUT",
             data: newState
         }).then(function () {
             // Reload the page to get the updated list
@@ -20,64 +21,51 @@ $(document).ready(function() {
     $(".btn-delete").on("click", function (event) {
         event.preventDefault();
         var id = $(this).data("id");
-        
+
         $.ajax({
             url: `/api/news/${id}`,
             method: "DELETE"
         }).then(function () {
             location.reload();
+        });
+    });
+    $(".btn-comment").on("click", function (event) {
+        var id = $(this).data("id");
+        console.log(id);
+        console.log(this);
+        $(".btn-submit").data("id", id);
+        
+        $.ajax({
+            url: `/comment/display/${id}`,
+            method: "GET"})
+        .then(function (data) {
+            $("#comment-modal").css("display", "block");
+            // $(".note").append(`<p>${data.note}</p>`)
+            console.log(data);
+        });  
+    });
+
+
+    $(".btn-submit").on("click", function(event) {
+        event.preventDefault()
+        var id = $(this).data("id");
+
+        $.ajax({
+            url: `/api/news/comment/save/${id}`, 
+            method: "POST",
+            data: {
+                comment: $("#comment").val().trim()
+            }
+            }).then(function (data) {
+            console.log("note added");
+            console.log(data);
+        });
+        console.log("Comment after");
+    });
+    // jQuery used to remove data from modal on close
+    $(".close").on("click", function (event) {
+        $("#comment-modal").css("display", "none");
+        $("#comment").empty();
     });
 });
-});
 
-//     $.ajax({
-//         url: `/api/products/${id}`,
-//         method: "DELETE"
-//     }).then(result=> $(`#${id}`).remove());
-// })
-
-
-// $(".btn").on("click", function () {
-//     var id;
-//     var btnstate = $(this).data("state");
-//     if (btnstate === 0) {
-//         $(this).text("Saved To Your Trip");
-//         $(this).css('background-color', '#0275d8');
-//         $(this).css('border', '2px solid #0275d8');
-//         $(this).css('border-color', '#0275d8');
-//         $(this).data("state", 1);
-//         var info = {
-//             name: $(this).data("activityname"),
-//             photo: $(this).data("activityphoto"),
-//             url: $(this).data("activityurl"),
-//             description: $(this).data("activitydescription"),
-//             directions: $(this).data("activitydirections"),
-//             TripId: tripId
-//         };
-//         $.post("/api/activity", info, (result) => {
-//             id = result.id;
-//             $(this).data("activityid", id);
-//         })
-
-//     } else {
-//         $(this).text("+ Add To My Trip");
-//         $(this).css('background-color', '');
-//         $(this).css('border', '');
-//         $(this).css('border-color', '');
-//         $(this).data("state", 0);
-//         var info = {
-//             name: $(this).data("activityname"),
-//             photo: $(this).data("activityphoto"),
-//             url: $(this).data("activityurl"),
-//             description: $(this).data("activitydescription"),
-//             directions: $(this).data("activitydirections"),
-//             TripId: tripId
-//         };
-//         var id = $(this).data("activityid");
-//         $.ajax({
-//             url: `/api/activity/${id}`,
-//             method: "DELETE"
-//         }).then(() => {
-//             console.log("deleted");
-//         });
-//     }

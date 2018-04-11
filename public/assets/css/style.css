@@ -20,7 +20,7 @@ li {
 .row {
     background-color: white;
 }
-button {
+.btn-delete {
     position: absolute;
     right:    0px;
     bottom:   10px;
