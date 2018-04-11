@@ -55,16 +55,11 @@
         <textarea class="form-control" id="comment"></textarea >
         <button type="button" class="btn btn-info btn-submit" data-id="{{this._id}}"> COMMENT</button>
       </div>
-        {{#each note}} 
           <div class="savedNotes">
-            <div class="note">
-              <h3>Comment: {{comment}}</h3>
-              <button type="button" id="comment-delete" data-id="{{this._id}}" data-saved="false"> DELETE</button>
-            </div>
+            <h3>Comments: </h3>
+            <div class="container note"></div>
           </div>
-          {{/each}}
-          <div class="modal-footer">
-          </div>
-      </div>
+          <div class="modal-footer"></div>
     </div>
+  </div>
 </div>

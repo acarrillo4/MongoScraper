@@ -60,12 +60,8 @@ router.get("/saved", function (req, res) {
 });
 
 router.get("/comment/display/:id", function (req, res) {
-    db.Article.find({_id: req.params.id}).populate("note").then(function (data) {
-        var hbsObject2 = {
-            note: data.note
-        };
-        console.log(hbsObject2);
-        res.json(hbsObject2)
+    db.Article.findOne({_id: req.params.id}).populate("note").then(function (data) {
+        res.json(data.note);
     }).catch(function (err) {
          res.json(err);
     });
